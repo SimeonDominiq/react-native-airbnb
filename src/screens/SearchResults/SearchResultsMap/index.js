@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, FlatList, useWindowDimensions} from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import CustomMarker from '../../../components/CustomMarker';
 import places from '../../../../assets/data/feeds';
@@ -13,6 +13,8 @@ import styles from './Styles';
  * @returns
  */
 const SearchResultsMap = () => {
+  const width = useWindowDimensions().width;
+
   const [selectedPlaceId, setSelectedPlaceId] = useState(null);
 
   return (
@@ -45,7 +47,15 @@ const SearchResultsMap = () => {
       </MapView>
 
       <View style={styles.mapsCarousel}>
-        <PostCarouselItem post={places[0]} />
+        <FlatList
+          data={places}
+          renderItem={({item}) => <PostCarouselItem post={item} />}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          snapToInterval={width - 60}
+          snapToAlignment={'center'}
+          decelerationRate={'fast'}
+        />
       </View>
     </View>
   );
