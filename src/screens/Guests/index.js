@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {Text, View, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
@@ -94,7 +95,17 @@ const GuestScreen = () => {
       </View>
 
       <Pressable
-        onPress={() => navigation.navigate('Guests')}
+        onPress={() =>
+          navigation.navigate([
+            'Home',
+            {
+              screen: 'Explore',
+              params: {
+                screen: 'SearchResults',
+              },
+            },
+          ])
+        }
         style={{
           marginBottom: 20,
           backgroundColor: '#f15454',
